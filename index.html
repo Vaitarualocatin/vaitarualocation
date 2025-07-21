@@ -1,0 +1,3669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaitarua Location - Hébergements de Charme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes ping {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-ping {
+            animation: ping 1s infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Header moderne */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(147, 51, 234, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-img-container {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-location {
+            font-size: 0.9rem;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .logo-location strong {
+            color: #8b5cf6;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #ec4899 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            animation: slideInRight 1s ease-out 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.5);
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.15;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 15%;
+            left: 10%;
+            animation: bounce 3s infinite;
+        }
+
+        .floating-icon:nth-child(2) {
+            bottom: 20%;
+            right: 15%;
+            animation: pulse 4s infinite;
+        }
+
+        .floating-icon:nth-child(3) {
+            top: 50%;
+            left: 5%;
+            animation: ping 2s infinite;
+        }
+
+        /* Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 2rem;
+            padding: 4rem 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 3rem;
+            color: #1f2937;
+            font-weight: 900;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            border-radius: 2px;
+        }
+
+        /* Logements Grid */
+        .logements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .logement-card {
+            background: white;
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.05), rgba(236, 72, 153, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logement-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .logement-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Carrousel amélioré */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background: #f8f9fa;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide:hover img {
+            transform: scale(1.05);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #8b5cf6;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-container:hover .carousel-nav {
+            opacity: 1;
+        }
+
+        .carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .carousel-prev {
+            left: 15px;
+        }
+
+        .carousel-next {
+            right: 15px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .carousel-indicator.active {
+            background: white;
+            transform: scale(1.2);
+            border-color: #8b5cf6;
+        }
+
+        .carousel-indicator:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .logement-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #1f2937;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logement-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logement-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-tag {
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .logement-price {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 2px solid #f3f4f6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .price-main {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-details {
+            font-size: 0.9rem;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .reserve-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .reserve-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Ensemble Card */
+        .ensemble-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
+        }
+
+        .ensemble-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .ensemble-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ensemble-card p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 1rem;
+        }
+
+        .ensemble-price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ensemble-btn {
+            background: white;
+            color: #3b82f6;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .ensemble-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .promo-banner h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: white;
+            border-radius: 20px;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.05), rgba(236, 72, 153, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+            border-color: #8b5cf6;
+        }
+
+        .feature:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature p {
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Reservation Section */
+        .reservation-section {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            color: white;
+            padding: 4rem 3rem;
+            border-radius: 30px;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logement-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logement-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logement-btn:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logement-btn.selected {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fbbf24;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.3);
+        }
+
+        .logement-btn-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .logement-btn-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .logement-btn-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        /* Form Styles */
+        .booking-form {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(139, 92, 246, 0.1);
+            display: none;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-form.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-helper {
+            font-size: 0.85rem;
+            color: #8b5cf6;
+            margin-top: 0.3rem;
+        }
+
+        /* Price calculation */
+        .price-calculation {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+            border: 2px solid #10b981;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .price-calculation.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .price-calculation h4 {
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            color: #1f2937;
+            font-size: 0.95rem;
+        }
+
+        .calc-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1f2937;
+            border-top: 2px solid rgba(31, 41, 55, 0.1);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .discount-row {
+            color: #10b981 !important;
+            font-weight: 600;
+        }
+
+        .error-calculation {
+            background: linear-gradient(135deg, #fef2f2 0%, #fef7f7 100%);
+            border: 2px solid #ef4444;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Payment Buttons */
+        .payment-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .payment-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+        }
+
+        .payment-btn .icon {
+            font-size: 2rem;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .payment-btn .payment-text strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .payment-btn .payment-text small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Info */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .contact-info h3 {
+            color: #8b5cf6;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+        }
+
+        .phone-btn {
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            color: white;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Map Section */
+        .map-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .map-section h3 {
+            color: #8b5cf6;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .map-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+
+        .map-btn {
+            background: linear-gradient(45deg, #3b82f6, #06b6d4);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .map-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .footer-subtitle {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        /* Rental Type Selector */
+        .rental-tab {
+            background: transparent;
+            border: none;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #6b7280;
+            position: relative;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .rental-tab.active {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .rental-tab:hover:not(.active) {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        /* Distinction visuelle pour location mensuelle */
+        #monthly-rental-section .reservation-section {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        #monthly-rental-section .logement-btn {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        #monthly-rental-section .logement-btn:hover {
+            border-color: rgba(251, 191, 36, 0.8);
+        }
+
+        #monthly-rental-section .logement-btn.selected {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.2);
+        }
+
+        /* Monthly Rental Section */
+        .monthly-rental-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 4rem 3rem;
+            border-radius: 30px;
+            margin: 3rem 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .monthly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .monthly-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .monthly-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #8b5cf6;
+        }
+
+        .monthly-card.featured {
+            border: 3px solid #10b981;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%);
+            transform: scale(1.05);
+        }
+
+        .monthly-card.featured::before {
+            content: '💎 RECOMMANDÉ';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .monthly-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .monthly-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .monthly-price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .monthly-card.featured .monthly-price {
+            background: linear-gradient(45deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .monthly-details {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .monthly-details p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .monthly-btn {
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .monthly-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .monthly-btn.featured {
+            background: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        .monthly-btn.featured:hover {
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .monthly-info {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 2px solid #e2e8f0;
+        }
+
+        .monthly-info h5 {
+            color: #1f2937;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .monthly-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .monthly-info li {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .monthly-info li::before {
+            content: '•';
+            color: #8b5cf6;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Monthly form styles */
+        .monthly-form {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(139, 92, 246, 0.1);
+            display: none;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .monthly-form.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .monthly-duration-selector {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .duration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .duration-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .duration-btn:hover {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .duration-btn.selected {
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Calendar Generation Styles */
+        .calendar-section {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%);
+            border: 2px solid #10b981;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .calendar-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .calendar-download-btn {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem auto;
+        }
+
+        .calendar-download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .section h2 {
+                font-size: 2.5rem;
+            }
+            
+            .logements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .logement-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
+            
+            .logement-btn-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-container {
+                height: 220px;
+            }
+            
+            .carousel-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-prev {
+                left: 10px;
+            }
+            
+            .carousel-next {
+                right: 10px;
+            }
+            
+            .section {
+                margin: 0.5rem;
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+            
+            .hero {
+                padding: 0 1rem;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Styles Stripe Modal */
+        #stripe-modal {
+            backdrop-filter: blur(8px);
+        }
+
+        #stripe-modal .payment-modal {
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(99, 91, 255, 0.1);
+        }
+
+        #stripe-card-element {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #stripe-card-element:focus-within {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        #stripe-submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 91, 255, 0.4);
+        }
+
+        #stripe-submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #stripe-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #stripe-spinner::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Stripe Modal */
+        @media (max-width: 768px) {
+            #stripe-modal > div {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-img-container">
+                    <img src="https://i.ibb.co/NnSfkvJV/Whats-App-Image-2025-07-15-13-16-53-9816427e.jpg" alt="Vaitarua Location" class="logo-img">
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">Vaitarua Location</div>
+                    <div class="logo-location">📍 <strong>Taravao</strong>, Tahiti</div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#logements">Logements</a></li>
+                <li><a href="#reservation">Réserver</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="accueil" class="hero">
+            <div class="floating-elements">
+                <div class="floating-icon">🏝️</div>
+                <div class="floating-icon">🌺</div>
+                <div class="floating-icon">🏖️</div>
+            </div>
+            <div class="hero-content">
+                <h1>Hébergements de Charme</h1>
+                <p>Découvrez nos logements sur Taravao</p>
+                <button class="cta-button" onclick="scrollToSection('logements')">
+                    Réserver maintenant ✨
+                </button>
+            </div>
+        </section>
+
+        <section id="logements" class="section scroll-reveal">
+            <h2>Nos Logements</h2>
+            
+            <!-- Description principale -->
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto; padding: 0 1rem;">
+                <p style="font-size: 1.2rem; color: #374151; line-height: 1.6; margin-bottom: 1rem;">
+                    Taravao, PK 57.7, à seulement 3 minutes du centre, à 200 m à pied de la baie de Phaëton et à proximité de toutes les commodités. 🌳 Terrain arboré • 🚗 5 places de parking.
+                </p>
+            </div>
+            
+            <!-- Bandeau explicatif -->
+            <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 2rem; border-radius: 20px; text-align: center; margin-bottom: 3rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">🏠 Deux types de location disponibles</h3>
+                <div style="display: grid; md:grid-cols-2; gap: 2rem; max-width: 800px; margin: 0 auto;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 15px;">
+                        <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem;">🌙 Location à la nuitée</h4>
+                        <p style="margin: 0; font-size: 1rem; line-height: 1.5;">Séjours courts • 1 nuit minimum • Idéal vacances et week-ends</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 15px;">
+                        <h4 style="font-size: 1.3rem; margin-bottom: 0.8rem;">📅 Location au mois</h4>
+                        <p style="margin: 0; font-size: 1rem; line-height: 1.5;">Séjours longs • 1 à 12 mois • Idéal professionnels et étudiants</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="logements-grid">
+                <!-- Logement 1 Chambre -->
+                <div class="logement-card">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carousel-1chambre">
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/nqJcNH0k/Whats-App-Image-2025-07-15-13-17-00-d59c6589.jpg" alt="Logement 1 chambre - Vue d'ensemble" loading="lazy">
+                                <div class="image-overlay">1/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/27mbktPZ/Whats-App-Image-2025-07-15-13-17-01-8e55516c.jpg" alt="Logement 1 chambre - Chambre" loading="lazy">
+                                <div class="image-overlay">2/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/fd24WzWv/Whats-App-Image-2025-07-15-13-17-01-9d0fccaa.jpg" alt="Logement 1 chambre - Lit" loading="lazy">
+                                <div class="image-overlay">3/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/670s2NSw/Whats-App-Image-2025-07-15-13-17-15-a006d2cd.jpg" alt="Logement 1 chambre - Cuisine" loading="lazy">
+                                <div class="image-overlay">4/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/zWhR8ysP/Whats-App-Image-2025-07-15-13-17-15-e9e68409.jpg" alt="Logement 1 chambre - Cuisine équipée" loading="lazy">
+                                <div class="image-overlay">5/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/xqhRThxg/Whats-App-Image-2025-07-15-13-17-16-1566ed50.jpg" alt="Logement 1 chambre - Salle de bain" loading="lazy">
+                                <div class="image-overlay">6/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/B7nLK1w/Whats-App-Image-2025-07-15-13-17-17-563b22a5.jpg" alt="Logement 1 chambre - Espace extérieur" loading="lazy">
+                                <div class="image-overlay">7/8</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/G4LxzYz0/Whats-App-Image-2025-07-15-13-17-18-447b8f4e.jpg" alt="Logement 1 chambre - Vue extérieure" loading="lazy">
+                                <div class="image-overlay">8/8</div>
+                            </div>
+                        </div>
+                        
+                        <button class="carousel-nav carousel-prev" onclick="moveCarousel('1chambre', -1)">❮</button>
+                        <button class="carousel-nav carousel-next" onclick="moveCarousel('1chambre', 1)">❯</button>
+                        
+                        <div class="carousel-indicators">
+                            <div class="carousel-indicator active" onclick="goToSlide('1chambre', 0)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 1)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 2)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 3)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 4)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 5)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 6)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('1chambre', 7)"></div>
+                        </div>
+                    </div>
+
+                    <h3>🛏️ Logement 1 Chambre</h3>
+                    <div class="logement-info">
+                        <p><strong>Capacité :</strong> 1-2 personnes</p>
+                        <p>Idéal pour couples, voyageurs solo</p>
+                    </div>
+                    
+                    <div class="logement-features">
+                        <span class="feature-tag">Cuisine équipée</span>
+                        <span class="feature-tag">Salle de bain</span>
+                        <span class="feature-tag">Coin salon</span>
+                        <span class="feature-tag">Wi-Fi</span>
+                        <span class="feature-tag">Parking</span>
+                    </div>
+
+                    <div class="logement-price">
+                        <!-- Prix à la nuitée -->
+                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1rem;">
+                            <h4 style="margin: 0 0 0.8rem 0; font-size: 1.1rem;">🌙 Location à la nuitée</h4>
+                            <div class="price-main" style="color: #fbbf24; margin-bottom: 0.5rem;">8 000 XPF/nuit</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">
+                                <p style="margin: 0.2rem 0;">• 2 nuits: 16 000 XPF</p>
+                                <p style="margin: 0.2rem 0;">• 3 nuits (-10%): 21 600 XPF</p>
+                            </div>
+                            <button class="reserve-btn" onclick="selectLogement('1chambre')" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem;">
+                                Réserver à la nuitée
+                            </button>
+                        </div>
+                        
+                        <!-- Prix au mois -->
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1.5rem; border-radius: 15px;">
+                            <h4 style="margin: 0 0 0.8rem 0; font-size: 1.1rem;">📅 Location au mois</h4>
+                            <div class="price-main" style="color: #fbbf24; margin-bottom: 0.5rem;">92 000 XPF/mois</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">
+                                <p style="margin: 0.2rem 0;">✅ Eau + Ordures comprises</p>
+                                <p style="margin: 0.2rem 0;">⚡ EDT et Internet à souscrire</p>
+                            </div>
+                            <button class="reserve-btn" onclick="selectMonthlyLogement('1chambre')" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem;">
+                                Louer au mois
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Logement 2 Chambres -->
+                <div class="logement-card">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carousel-2chambres">
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/9mRPGZ5L/Whats-App-Image-2025-07-15-13-16-52-84794648.jpg" alt="Logement 2 chambres - Vue d'ensemble" loading="lazy">
+                                <div class="image-overlay">1/6</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/3m8JzBn1/Whats-App-Image-2025-07-15-13-16-38-de45e539.jpg" alt="Logement 2 chambres - Chambre principale" loading="lazy">
+                                <div class="image-overlay">2/6</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/d0FgcYxT/Whats-App-Image-2025-07-15-13-16-39-0ce71591.jpg" alt="Logement 2 chambres - Seconde chambre" loading="lazy">
+                                <div class="image-overlay">3/6</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/CNbhzNR/Whats-App-Image-2025-07-15-13-16-50-ba8fc65c.jpg" alt="Logement 2 chambres - Cuisine équipée" loading="lazy">
+                                <div class="image-overlay">4/6</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/pvgTgW9V/Whats-App-Image-2025-07-15-13-16-51-bc207560.jpg" alt="Logement 2 chambres - Salle de bain" loading="lazy">
+                                <div class="image-overlay">5/6</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/Df3XYGQ1/Whats-App-Image-2025-07-15-13-16-52-804cd97c.jpg" alt="Logement 2 chambres - Espace extérieur" loading="lazy">
+                                <div class="image-overlay">6/6</div>
+                            </div>
+                        </div>
+                        
+                        <button class="carousel-nav carousel-prev" onclick="moveCarousel('2chambres', -1)">❮</button>
+                        <button class="carousel-nav carousel-next" onclick="moveCarousel('2chambres', 1)">❯</button>
+                        
+                        <div class="carousel-indicators">
+                            <div class="carousel-indicator active" onclick="goToSlide('2chambres', 0)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('2chambres', 1)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('2chambres', 2)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('2chambres', 3)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('2chambres', 4)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('2chambres', 5)"></div>
+                        </div>
+                    </div>
+
+                    <h3>🏡 Logement 2 Chambres</h3>
+                    <div class="logement-info">
+                        <p><strong>Capacité :</strong> 2-4 personnes</p>
+                        <p>Idéal pour familles, groupes d'amis</p>
+                    </div>
+                    
+                    <div class="logement-features">
+                        <span class="feature-tag">Cuisine</span>
+                        <span class="feature-tag">Salle de bain</span>
+                        <span class="feature-tag">WC invité</span>
+                        <span class="feature-tag">Salon</span>
+                        <span class="feature-tag">Wi-Fi</span>
+                        <span class="feature-tag">Parking</span>
+                    </div>
+
+                    <div class="logement-price">
+                        <!-- Prix à la nuitée -->
+                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1rem;">
+                            <h4 style="margin: 0 0 0.8rem 0; font-size: 1.1rem;">🌙 Location à la nuitée</h4>
+                            <div class="price-main" style="color: #fbbf24; margin-bottom: 0.5rem;">12 000 XPF/nuit</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">
+                                <p style="margin: 0.2rem 0;">• 2 nuits: 24 000 XPF</p>
+                                <p style="margin: 0.2rem 0;">• 3 nuits (-10%): 32 400 XPF</p>
+                            </div>
+                            <button class="reserve-btn" onclick="selectLogement('2chambres')" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem;">
+                                Réserver à la nuitée
+                            </button>
+                        </div>
+                        
+                        <!-- Prix au mois -->
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1.5rem; border-radius: 15px;">
+                            <h4 style="margin: 0 0 0.8rem 0; font-size: 1.1rem;">📅 Location au mois</h4>
+                            <div class="price-main" style="color: #fbbf24; margin-bottom: 0.5rem;">152 000 XPF/mois</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">
+                                <p style="margin: 0.2rem 0;">✅ Eau + Ordures comprises</p>
+                                <p style="margin: 0.2rem 0;">⚡ EDT et Internet à souscrire</p>
+                            </div>
+                            <button class="reserve-btn" onclick="selectMonthlyLogement('2chambres')" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem;">
+                                Louer au mois
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logement 3 Chambres (Les Deux Ensemble) -->
+                <div class="logement-card">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carousel-ensemble">
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/nqJcNH0k/Whats-App-Image-2025-07-15-13-17-00-d59c6589.jpg" alt="Logement ensemble - Vue d'ensemble 1" loading="lazy">
+                                <div class="image-overlay">1/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/9mRPGZ5L/Whats-App-Image-2025-07-15-13-16-52-84794648.jpg" alt="Logement ensemble - Vue d'ensemble 2" loading="lazy">
+                                <div class="image-overlay">2/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/27mbktPZ/Whats-App-Image-2025-07-15-13-17-01-8e55516c.jpg" alt="Logement ensemble - Chambre 1" loading="lazy">
+                                <div class="image-overlay">3/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/3m8JzBn1/Whats-App-Image-2025-07-15-13-16-38-de45e539.jpg" alt="Logement ensemble - Chambre 2" loading="lazy">
+                                <div class="image-overlay">4/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/d0FgcYxT/Whats-App-Image-2025-07-15-13-16-39-0ce71591.jpg" alt="Logement ensemble - Chambre 3" loading="lazy">
+                                <div class="image-overlay">5/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/fd24WzWv/Whats-App-Image-2025-07-15-13-17-01-9d0fccaa.jpg" alt="Logement ensemble - Lit" loading="lazy">
+                                <div class="image-overlay">6/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/670s2NSw/Whats-App-Image-2025-07-15-13-17-15-a006d2cd.jpg" alt="Logement ensemble - Cuisine 1" loading="lazy">
+                                <div class="image-overlay">7/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/CNbhzNR/Whats-App-Image-2025-07-15-13-16-50-ba8fc65c.jpg" alt="Logement ensemble - Cuisine 2" loading="lazy">
+                                <div class="image-overlay">8/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/zWhR8ysP/Whats-App-Image-2025-07-15-13-17-15-e9e68409.jpg" alt="Logement ensemble - Cuisine équipée 1" loading="lazy">
+                                <div class="image-overlay">9/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/pvgTgW9V/Whats-App-Image-2025-07-15-13-16-51-bc207560.jpg" alt="Logement ensemble - Salle de bain 1" loading="lazy">
+                                <div class="image-overlay">10/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/xqhRThxg/Whats-App-Image-2025-07-15-13-17-16-1566ed50.jpg" alt="Logement ensemble - Salle de bain 2" loading="lazy">
+                                <div class="image-overlay">11/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/B7nLK1w/Whats-App-Image-2025-07-15-13-17-17-563b22a5.jpg" alt="Logement ensemble - Espace extérieur 1" loading="lazy">
+                                <div class="image-overlay">12/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/Df3XYGQ1/Whats-App-Image-2025-07-15-13-16-52-804cd97c.jpg" alt="Logement ensemble - Espace extérieur 2" loading="lazy">
+                                <div class="image-overlay">13/14</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="https://i.ibb.co/G4LxzYz0/Whats-App-Image-2025-07-15-13-17-18-447b8f4e.jpg" alt="Logement ensemble - Vue extérieure" loading="lazy">
+                                <div class="image-overlay">14/14</div>
+                            </div>
+                        </div>
+                        
+                        <button class="carousel-nav carousel-prev" onclick="moveCarousel('ensemble', -1)">❮</button>
+                        <button class="carousel-nav carousel-next" onclick="moveCarousel('ensemble', 1)">❯</button>
+                        
+                        <div class="carousel-indicators">
+                            <div class="carousel-indicator active" onclick="goToSlide('ensemble', 0)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 1)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 2)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 3)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 4)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 5)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 6)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 7)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 8)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 9)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 10)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 11)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 12)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('ensemble', 13)"></div>
+                        </div>
+                    </div>
+
+                    <h3>🏘️ Logement 3 Chambres</h3>
+                    <div class="logement-info">
+                        <p><strong>Capacité :</strong> Jusqu'à 6 personnes</p>
+                        <p>Idéal pour familles, groupes d'amis</p>
+                    </div>
+                    
+                    <div class="logement-features">
+                        <span class="feature-tag">Cuisines</span>
+                        <span class="feature-tag">2 Salles de bain</span>
+                        <span class="feature-tag">WC invité</span>
+                        <span class="feature-tag">Salon</span>
+                        <span class="feature-tag">Wi-Fi</span>
+                        <span class="feature-tag">5 Parkings</span>
+                    </div>
+
+                    <div class="logement-price">
+                        <!-- Prix à la nuitée -->
+                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 1.5rem; border-radius: 15px; margin-bottom: 1rem;">
+                            <h4 style="margin: 0 0 0.8rem 0; font-size: 1.1rem;">🌙 Location à la nuitée</h4>
+                            <div class="price-main" style="color: #fbbf24; margin-bottom: 0.5rem;">18 000 XPF/nuit</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">
+                                <p style="margin: 0.2rem 0;">• 2 nuits: 36 000 XPF</p>
+                                <p style="margin: 0.2rem 0;">• 3 nuits (-10%): 48 600 XPF</p>
+                            </div>
+                            <button class="reserve-btn" onclick="selectLogement('ensemble')" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem;">
+                                Réserver à la nuitée
+                            </button>
+                        </div>
+                        
+                        <!-- Prix au mois -->
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1.5rem; border-radius: 15px;">
+                            <h4 style="margin: 0 0 0.8rem 0; font-size: 1.1rem;">📅 Location au mois</h4>
+                            <div class="price-main" style="color: #fbbf24; margin-bottom: 0.5rem;">242 000 XPF/mois</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">
+                                <p style="margin: 0.2rem 0;">✅ Eau + Ordures comprises</p>
+                                <p style="margin: 0.2rem 0;">⚡ EDT et Internet à souscrire</p>
+                            </div>
+                            <button class="reserve-btn" onclick="selectMonthlyLogement('ensemble')" style="background: rgba(255,255,255,0.2); color: white; margin-top: 1rem;">
+                                Louer au mois
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promo Banner -->
+            <div class="promo-banner">
+                <h4>🎁 Offre Spéciale Week-end</h4>
+                <p>💰 <strong>Profitez d'une remise spéciale :</strong> pour 3 nuits réservées, bénéficiez de -10% sur le total ! Offre valable du vendredi au lundi, selon disponibilité.</p>
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Réservation Rapide</h4>
+                    <p>Disponible pour séjours urgents avec confirmation immédiate</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📅</div>
+                    <h4>Flexible</h4>
+                    <p>Nuitées, week-ends, longs séjours adaptés à vos besoins</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💳</div>
+                    <h4>Paiement Sécurisé</h4>
+                    <p>Payez en ligne par carte bancaire avec Stripe</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📍</div>
+                    <h4>Localisation Idéale</h4>
+                    <p>Taravao, Baie de Phaeton - À seulement 200m de la baie</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="reservation" class="section scroll-reveal">
+            <h2>Réservation</h2>
+            
+            <!-- Sélecteur de type de location -->
+            <div class="rental-type-selector" style="text-align: center; margin-bottom: 3rem;">
+                <h3 style="color: #1f2937; margin-bottom: 1.5rem; font-size: 2rem;">🏠 Quel type de location vous intéresse ?</h3>
+                <div style="display: inline-flex; background: white; border-radius: 15px; padding: 0.5rem; border: 2px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <button id="short-rental-tab" class="rental-tab active" onclick="switchRentalType('short')" style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                        <span style="font-size: 1.5rem;">🌙</span>
+                        <span style="font-weight: 700;">Location à la nuitée</span>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">Séjours courts • Vacances</span>
+                    </button>
+                    <button id="monthly-rental-tab" class="rental-tab" onclick="switchRentalType('monthly')" style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+                        <span style="font-size: 1.5rem;">📅</span>
+                        <span style="font-weight: 700;">Location au mois</span>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">1 à 12 mois • Longue durée</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section séjours courts -->
+            <div id="short-rental-section">
+                <div class="reservation-section">
+                    <h3 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem;">🌙 Location à la nuitée - Choisissez votre logement</h3>
+                    <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-size: 1.1rem;">
+                        Parfait pour vos vacances, week-ends et séjours courts en Polynésie française
+                    </p>
+                    
+                    <div class="logement-selector">
+                        <button class="logement-btn" data-type="1chambre" data-price="8000" data-max="2" onclick="selectLogement('1chambre')">
+                            <div class="logement-btn-header">
+                                <div class="logement-btn-title">🛏️ Logement 1 Chambre</div>
+                                <div class="logement-btn-price">8 000 XPF/nuit</div>
+                            </div>
+                            <p style="margin: 0.5rem 0; opacity: 0.9;">1-2 personnes • 2 nuits: 16 000 XPF • 3 nuits (-10%): 21 600 XPF</p>
+                            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">Check-in: 15h00 • Check-out: 11h00</p>
+                        </button>
+                        
+                        <button class="logement-btn" data-type="2chambres" data-price="12000" data-max="4" onclick="selectLogement('2chambres')">
+                            <div class="logement-btn-header">
+                                <div class="logement-btn-title">🏡 Logement 2 Chambres</div>
+                                <div class="logement-btn-price">12 000 XPF/nuit</div>
+                            </div>
+                            <p style="margin: 0.5rem 0; opacity: 0.9;">2-4 personnes • 2 nuits: 24 000 XPF • 3 nuits (-10%): 32 400 XPF</p>
+                            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">Check-in: 15h00 • Check-out: 11h00</p>
+                        </button>
+                        
+                        <button class="logement-btn" data-type="ensemble" data-price="18000" data-max="6" onclick="selectLogement('ensemble')">
+                            <div class="logement-btn-header">
+                                <div class="logement-btn-title">🏘️ Logement 3 Chambres</div>
+                                <div class="logement-btn-price">18 000 XPF/nuit</div>
+                            </div>
+                            <p style="margin: 0.5rem 0; opacity: 0.9;">Jusqu'à 6 personnes • 2 nuits: 36 000 XPF • 3 nuits (-10%): 48 600 XPF</p>
+                            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">Check-in: 15h00 • Check-out: 11h00</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section location mensuelle -->
+            <div id="monthly-rental-section" style="display: none;">
+                <div class="reservation-section" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <h3 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem;">📅 Location au mois - Choisissez votre logement</h3>
+                    <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-size: 1.1rem;">
+                        Idéal pour professionnels, étudiants, expatriés et séjours de longue durée (1 à 12 mois)
+                    </p>
+                    
+                    <div class="logement-selector">
+                        <button class="logement-btn" data-type="1chambre-monthly" data-price="92000" data-max="2" onclick="selectMonthlyLogement('1chambre')">
+                            <div class="logement-btn-header">
+                                <div class="logement-btn-title">🛏️ Logement 1 Chambre</div>
+                                <div class="logement-btn-price">92 000 XPF/mois</div>
+                            </div>
+                            <p style="margin: 0.5rem 0; opacity: 0.9;">✅ Eau + Ordures comprises • ⚡ EDT à souscrire • 🌐 Internet à souscrire</p>
+                            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">💰 Caution: 1 mois • 📋 Bail de 1 à 12 mois</p>
+                        </button>
+                        
+                        <button class="logement-btn" data-type="2chambres-monthly" data-price="152000" data-max="4" onclick="selectMonthlyLogement('2chambres')">
+                            <div class="logement-btn-header">
+                                <div class="logement-btn-title">🏡 Logement 2 Chambres</div>
+                                <div class="logement-btn-price">152 000 XPF/mois</div>
+                            </div>
+                            <p style="margin: 0.5rem 0; opacity: 0.9;">✅ Eau + Ordures comprises • ⚡ EDT à souscrire • 🌐 Internet à souscrire</p>
+                            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">💰 Caution: 1 mois • 📋 Bail de 1 à 12 mois</p>
+                        </button>
+                        
+                        <button class="logement-btn" data-type="ensemble-monthly" data-price="242000" data-max="6" onclick="selectMonthlyLogement('ensemble')">
+                            <div class="logement-btn-header">
+                                <div class="logement-btn-title">🏘️ Logement 3 Chambres</div>
+                                <div class="logement-btn-price">242 000 XPF/mois</div>
+                            </div>
+                            <p style="margin: 0.5rem 0; opacity: 0.9;">✅ Eau + Ordures comprises • ⚡ EDT à souscrire • 🌐 Internet à souscrire</p>
+                            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">💰 Caution: 1 mois</p>
+                        </button>
+                    </div>
+                    
+                    <!-- Informations importantes location mensuelle -->
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; margin-top: 2rem; backdrop-filter: blur(10px);">
+                        <h4 style="color: white; margin-bottom: 1rem; font-size: 1.3rem;">📋 Informations importantes - Location au mois</h4>
+                        <div style="display: grid; md:grid-cols-2; gap: 1.5rem; color: rgba(255,255,255,0.9); font-size: 0.95rem;">
+                            <div>
+                                <p style="margin: 0.5rem 0;"><strong>✅ Charges comprises :</strong></p>
+                                <ul style="margin: 0; padding-left: 1rem;">
+                                    <li>Eau courante</li>
+                                    <li>Ramassage ordures ménagères</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p style="margin: 0.5rem 0;"><strong>💰 À prévoir en plus :</strong></p>
+                                <ul style="margin: 0; padding-left: 1rem;">
+                                    <li>EDT (électricité) - à souscrire</li>
+                                    <li>Internet - à souscrire</li>
+                                    <li>Caution : 1 mois de loyer</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form" id="booking-form">
+                <!-- Header amélioré -->
+                <div style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; padding: 2.5rem; border-radius: 25px 25px 0 0; margin: -3rem -3rem 3rem -3rem; text-align: center; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.15), transparent 50%), radial-gradient(circle at 70% 80%, rgba(255,255,255,0.1), transparent 50%);"></div>
+                    <div style="position: relative; z-index: 2;">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏠</div>
+                        <h3 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+                            Réservation
+                        </h3>
+                        <div style="font-size: 1.3rem; opacity: 0.95; font-weight: 600;">
+                            <span id="selected-title">Choisissez un logement</span>
+                        </div>
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                            <div style="font-size: 0.95rem; opacity: 0.9;">✨ Quelques clics et votre séjour est confirmé</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="reservationForm">
+                    <!-- Indicateur d'étapes -->
+                    <div style="display: flex; justify-content: center; margin-bottom: 3rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 1rem 2rem; border-radius: 20px; border: 2px solid #e2e8f0;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: #8b5cf6;">
+                                <div style="width: 30px; height: 30px; background: linear-gradient(45deg, #8b5cf6, #ec4899); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9rem;">1</div>
+                                <span style="font-weight: 600;">Informations</span>
+                            </div>
+                            <div style="width: 30px; height: 2px; background: linear-gradient(45deg, #8b5cf6, #ec4899);"></div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: #6b7280;">
+                                <div style="width: 30px; height: 30px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #6b7280; font-weight: bold; font-size: 0.9rem;">2</div>
+                                <span style="font-weight: 600;">Paiement</span>
+                            </div>
+                            <div style="width: 30px; height: 2px; background: #e2e8f0;"></div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: #6b7280;">
+                                <div style="width: 30px; height: 30px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #6b7280; font-weight: bold; font-size: 0.9rem;">3</div>
+                                <span style="font-weight: 600;">Confirmation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <!-- Section Informations personnelles -->
+                        <div style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 2px solid rgba(139, 92, 246, 0.1); position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(45deg, #8b5cf6, #ec4899);"></div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                                <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b5cf6, #ec4899); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👤</div>
+                                <div>
+                                    <h4 style="color: #1f2937; font-size: 1.4rem; font-weight: 700; margin: 0;">Vos informations</h4>
+                                    <p style="color: #6b7280; margin: 0.3rem 0 0 0; font-size: 0.95rem;">Renseignez vos coordonnées</p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="nom" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                    <span style="color: #8b5cf6;">👨‍💼</span> Nom complet *
+                                </label>
+                                <input type="text" id="nom" name="nom" required style="position: relative;">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                    <span style="color: #8b5cf6;">📧</span> Email *
+                                </label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telephone" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                    <span style="color: #8b5cf6;">📱</span> Téléphone
+                                </label>
+                                <input type="tel" id="telephone" name="telephone" placeholder="+689 xx xx xx xx">
+                            </div>
+                        </div>
+
+                        <!-- Section Dates et personnes -->
+                        <div style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 2px solid rgba(139, 92, 246, 0.1); position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(45deg, #8b5cf6, #ec4899);"></div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                                <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #8b5cf6, #ec4899); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📅</div>
+                                <div>
+                                    <h4 style="color: #1f2937; font-size: 1.4rem; font-weight: 700; margin: 0;" id="dates-title">Dates et personnes</h4>
+                                    <p style="color: #6b7280; margin: 0.3rem 0 0 0; font-size: 0.95rem;">Choisissez vos dates de séjour</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Formulaire séjours courts -->
+                            <div id="short-form-fields">
+                                <div class="form-group">
+                                    <label for="checkin" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                        <span style="color: #10b981;">🛬</span> Date d'arrivée *
+                                    </label>
+                                    <input type="date" id="checkin" name="checkin" required onchange="calculateTotal()">
+                                    <div class="form-helper" style="display: flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem;">
+                                        <span style="color: #10b981;">⏰</span> Check-in à partir de 15h00
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="checkout" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                        <span style="color: #f59e0b;">🛫</span> Date de départ *
+                                    </label>
+                                    <input type="date" id="checkout" name="checkout" required onchange="calculateTotal()">
+                                    <div class="form-helper" style="display: flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem;">
+                                        <span style="color: #f59e0b;">⏰</span> Check-out jusqu'à 11h00
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Formulaire location mensuelle -->
+                            <div id="monthly-form-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="start-date" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                        <span style="color: #10b981;">📅</span> Date de début de location *
+                                    </label>
+                                    <input type="date" id="start-date" name="start-date" onchange="calculateMonthlyTotal()">
+                                    <div class="form-helper" style="display: flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem;">
+                                        <span style="color: #10b981;">📋</span> Date de prise d'effet du bail
+                                    </div>
+                                </div>
+                                
+                                <div class="monthly-duration-selector">
+                                    <h5 style="margin-bottom: 1rem; color: #1f2937; display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: #8b5cf6;">⏱️</span> Durée de la location *
+                                    </h5>
+                                    <div class="duration-grid">
+                                        <div class="duration-btn" data-months="1" onclick="selectDuration(1)">1 mois</div>
+                                        <div class="duration-btn" data-months="2" onclick="selectDuration(2)">2 mois</div>
+                                        <div class="duration-btn" data-months="3" onclick="selectDuration(3)">3 mois</div>
+                                        <div class="duration-btn" data-months="4" onclick="selectDuration(4)">4 mois</div>
+                                        <div class="duration-btn" data-months="5" onclick="selectDuration(5)">5 mois</div>
+                                        <div class="duration-btn" data-months="6" onclick="selectDuration(6)">6 mois</div>
+                                        <div class="duration-btn" data-months="7" onclick="selectDuration(7)">7 mois</div>
+                                        <div class="duration-btn" data-months="8" onclick="selectDuration(8)">8 mois</div>
+                                        <div class="duration-btn" data-months="9" onclick="selectDuration(9)">9 mois</div>
+                                        <div class="duration-btn" data-months="10" onclick="selectDuration(10)">10 mois</div>
+                                        <div class="duration-btn" data-months="11" onclick="selectDuration(11)">11 mois</div>
+                                        <div class="duration-btn" data-months="12" onclick="selectDuration(12)">12 mois</div>
+                                    </div>
+                                    <input type="hidden" id="selected-duration" name="duration">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="personnes" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #1f2937;">
+                                    <span style="color: #8b5cf6;">👥</span> Nombre de personnes *
+                                </label>
+                                <select id="personnes" name="personnes" required>
+                                    <option value="">Choisir...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Message -->
+                    <div style="background: white; border-radius: 20px; padding: 2.5rem; margin-top: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 2px solid rgba(139, 92, 246, 0.1); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(45deg, #8b5cf6, #ec4899);"></div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="message" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-weight: 600; color: #1f2937; font-size: 1.1rem;">
+                                <span style="color: #8b5cf6;">💬</span> Message (optionnel)
+                            </label>
+                            <textarea id="message" name="message" rows="4" placeholder="Demandes spéciales, heure d'arrivée préférée, questions..." style="resize: vertical;"></textarea>
+                            <div style="margin-top: 0.5rem; font-size: 0.85rem; color: #6b7280; display: flex; align-items: center; gap: 0.3rem;">
+                                <span>💡</span> Partagez-nous vos besoins spécifiques pour personnaliser votre séjour
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calcul de prix séjours courts -->
+                    <div class="price-calculation" id="price-calculation">
+                        <h4>💰 Calcul du prix</h4>
+                        <div class="calc-row">
+                            <span>Logement sélectionné:</span>
+                            <span id="selected-logement">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Type de séjour:</span>
+                            <span id="stay-type-text" style="color: #8b5cf6; font-weight: bold;">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Prix par nuit:</span>
+                            <span id="price-per-night">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Nombre de nuits:</span>
+                            <span id="nights-count">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Sous-total:</span>
+                            <span id="subtotal-amount">-</span>
+                        </div>
+                        <div class="calc-row discount-row" id="discount-row" style="display: none;">
+                            <span>🎉 Réduction -10% (3+ nuits):</span>
+                            <span id="discount-amount">-</span>
+                        </div>
+                        <div class="calc-total-row">
+                            <span>Total:</span>
+                            <span id="total-amount">- XPF</span>
+                        </div>
+                        <div id="conditions-info" style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280; text-align: center;">
+                            <p id="conditions-text"></p>
+                        </div>
+                    </div>
+
+                    <!-- Calcul de prix location mensuelle -->
+                    <div class="price-calculation" id="monthly-price-calculation" style="display: none;">
+                        <h4>💰 Calcul location mensuelle</h4>
+                        <div class="calc-row">
+                            <span>Logement sélectionné:</span>
+                            <span id="monthly-selected-logement">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Prix par mois:</span>
+                            <span id="monthly-price-per-month">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Durée:</span>
+                            <span id="monthly-duration">-</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Sous-total:</span>
+                            <span id="monthly-subtotal">-</span>
+                        </div>
+                        <div class="calc-row" style="color: #10b981;">
+                            <span>✅ Charges comprises:</span>
+                            <span>Eau, entretien, taxe habitation</span>
+                        </div>
+                        <div class="calc-row" style="color: #f59e0b;">
+                            <span>⚡ À prévoir en plus:</span>
+                            <span>EDT + Internet</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>💰 Caution (1 mois):</span>
+                            <span id="monthly-caution">-</span>
+                        </div>
+                        <div class="calc-total-row">
+                            <span>Total à payer:</span>
+                            <span id="monthly-total-amount">- XPF</span>
+                        </div>
+                        <div style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280; text-align: center;">
+                            <p><strong>Total = Location + Caution</strong></p>
+                            <p>La caution sera restituée en fin de bail</p>
+                        </div>
+                    </div>
+
+                    <!-- Message d'erreur -->
+                    <div class="error-calculation" id="error-calculation" style="display: none;">
+                        <span>⚠️</span>
+                        <span id="error-message">Message d'erreur</span>
+                    </div>
+
+                    <!-- Calendrier généré -->
+                    <div class="calendar-section" id="calendar-section">
+                        <h4 style="margin-bottom: 1rem;">📅 Votre calendrier de réservation</h4>
+                        <p style="margin-bottom: 1.5rem; color: #374151;">
+                            Après confirmation du paiement, téléchargez votre calendrier pour l'ajouter à Google Calendar, Outlook ou Apple Calendar.
+                        </p>
+                        <div style="text-align: center;">
+                            <button type="button" class="calendar-download-btn" onclick="downloadCalendar()">
+                                📥 Télécharger le calendrier (.ics)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Boutons de paiement -->
+                    <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 2.5rem; margin: 2rem 0; border: 2px solid rgba(139, 92, 246, 0.1);">
+                        <h4 style="color: #1f2937; margin-bottom: 2rem; font-size: 1.5rem; text-align: center; font-weight: 700;">
+                            💳 Choisir le mode de réservation
+                        </h4>
+                        <div class="payment-buttons">
+                            <button type="button" class="payment-btn" onclick="processBooking('stripe')" style="background: linear-gradient(135deg, #635bff 0%, #4338ca 100%);">
+                                <div class="icon">💳</div>
+                                <div class="payment-text">
+                                    <strong>Payer par Carte</strong>
+                                    <small>Paiement sécurisé avec Stripe</small>
+                                </div>
+                            </button>
+                            
+                            <button type="button" class="payment-btn" onclick="processBooking('whatsapp')">
+                                <div class="icon">💬</div>
+                                <div class="payment-text">
+                                    <strong>Réserver via WhatsApp</strong>
+                                    <small>Confirmation rapide et directe</small>
+                                </div>
+                            </button>
+                            
+                            <button type="button" class="payment-btn" onclick="processBooking('email')">
+                                <div class="icon">📧</div>
+                                <div class="payment-text">
+                                    <strong>Réserver par Email</strong>
+                                    <small>Demande détaillée par mail</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stripe Payment Modal -->
+                    <div id="stripe-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
+                        <div style="background: white; border-radius: 20px; padding: 2rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                                <h3 style="color: #1f2937; margin: 0;">💳 Paiement Sécurisé</h3>
+                                <button onclick="closeStripeModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280;">×</button>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%); border-radius: 15px; padding: 1.5rem; margin-bottom: 2rem; border: 2px solid #10b981;">
+                                <h4 style="margin: 0 0 1rem 0; color: #1f2937;">📊 Récapitulatif de votre réservation</h4>
+                                <div id="stripe-summary" style="font-size: 0.95rem; color: #374151;"></div>
+                            </div>
+                            
+                            <form id="stripe-payment-form">
+                                <div id="stripe-card-element" style="padding: 15px; border: 2px solid #e5e7eb; border-radius: 12px; margin-bottom: 1rem; background: #f9fafb;">
+                                    <!-- Stripe Elements sera injecté ici -->
+                                </div>
+                                <div id="stripe-card-errors" style="color: #ef4444; font-size: 0.9rem; margin-bottom: 1rem;"></div>
+                                
+                                <button type="submit" id="stripe-submit-btn" style="width: 100%; background: linear-gradient(135deg, #635bff 0%, #4338ca 100%); color: white; border: none; padding: 1rem; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease;">
+                                    <span id="stripe-btn-text">Payer <span id="stripe-amount">0</span> XPF</span>
+                                    <div id="stripe-spinner" style="display: none;">
+                                        <span>Traitement...</span>
+                                    </div>
+                                </button>
+                            </form>
+                            
+                            <div style="margin-top: 1.5rem; padding: 1rem; background: #f3f4f6; border-radius: 10px; font-size: 0.85rem; color: #6b7280; text-align: center;">
+                                🔒 Paiement 100% sécurisé par Stripe<br>
+                                Vos données bancaires sont chiffrées et protégées
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message de succès -->
+                    <div class="success-message" id="success-message">
+                        ✅ Demande de réservation envoyée avec succès !
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="contact" class="section scroll-reveal">
+            <h2>Contact</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>💬 Contactez-nous</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <span>+689 89 78 51 66</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <span>vaitarualocation@gmail.com</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <span>Taravao, Baie de Phaeton</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <span>Réponse rapide garantie !</span>
+                    </div>
+                    
+                    <div class="contact-buttons">
+                        <a href="https://wa.me/68989785166?text=Bonjour%20!%20Je%20souhaite%20des%20informations%20sur%20vos%20hébergements%20à%20Taravao." 
+                           target="_blank" 
+                           class="contact-btn whatsapp-btn">
+                            💬 WhatsApp
+                        </a>
+                        
+                        <a href="tel:+68989785166" 
+                           class="contact-btn phone-btn">
+                            📞 Appeler
+                        </a>
+                    </div>
+                </div>
+
+                <div class="map-section">
+                    <h3>📍 Notre Localisation</h3>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14946.7!2d-149.336884!3d17.732962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDQzJzU4LjciUyAxNDnCsDIwJzEyLjgiVw!5e0!3m2!1sfr!2spf!4v1642123456789!5m2!1sfr!2spf&markers=color:red%7Clabel:H%7C17.732962,-149.336884"
+                            width="100%" 
+                            height="350" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="map-info">
+                        <strong>Taravao, Baie de Phaeton PK57.7</strong><br>
+                        GPS: 17.732962, -149.336884
+                    </div>
+                    <div style="text-align: center;">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=17.732962,-149.336884" 
+                           target="_blank" class="map-btn">
+                            🧭 Obtenir l'itinéraire
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://i.ibb.co/NnSfkvJV/Whats-App-Image-2025-07-15-13-16-53-9816427e.jpg" alt="Vaitarua Location">
+                <div>
+                    <div class="footer-text">Vaitarua Location</div>
+                    <div class="footer-subtitle">📍 <strong style="color: #d1d5db;">Taravao</strong>, Tahiti - Hébergements de charme en Polynésie française</div>
+                </div>
+            </div>
+            <p>&copy; 2025 Vaitarua Location. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Stripe JS -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        // Configuration Stripe
+        const stripe = Stripe('pk_test_51RmKuv32A4p1F3ssjqnr8ikoQurFrPmMwHnUukwESAqn5361Lmu69smf5HfzivOcXE5lyVkNSwPDsPLA32Kkx2Jm0QCQ86hu2e');
+        let elements;
+        let cardElement;
+
+        // Variables globales
+        let selectedLogement = null;
+        let selectedDuration = null;
+        let isMonthlyRental = false;
+        let bookingData = {};
+        
+        // Variables pour le carrousel
+        let carouselStates = {
+            '1chambre': {
+                currentSlide: 0,
+                totalSlides: 8
+            },
+            '2chambres': {
+                currentSlide: 0,
+                totalSlides: 6
+            },
+            'ensemble': {
+                currentSlide: 0,
+                totalSlides: 14
+            }
+        };
+
+        // Auto-play carrousel
+        function startCarouselAutoplay() {
+            setInterval(() => {
+                moveCarousel('1chambre', 1);
+            }, 5000);
+            
+            setInterval(() => {
+                moveCarousel('2chambres', 1);
+            }, 5500);
+            
+            setInterval(() => {
+                moveCarousel('ensemble', 1);
+            }, 6000);
+        }
+
+        // Fonctions du carrousel
+        function moveCarousel(carouselId, direction) {
+            const state = carouselStates[carouselId];
+            const track = document.getElementById(`carousel-${carouselId}`);
+            const indicators = track.parentElement.querySelectorAll('.carousel-indicator');
+            
+            state.currentSlide += direction;
+            
+            if (state.currentSlide >= state.totalSlides) {
+                state.currentSlide = 0;
+            } else if (state.currentSlide < 0) {
+                state.currentSlide = state.totalSlides - 1;
+            }
+            
+            const translateX = -(state.currentSlide * 100);
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            updateIndicators(indicators, state.currentSlide);
+        }
+
+        function goToSlide(carouselId, slideIndex) {
+            const state = carouselStates[carouselId];
+            const track = document.getElementById(`carousel-${carouselId}`);
+            const indicators = track.parentElement.querySelectorAll('.carousel-indicator');
+            
+            state.currentSlide = slideIndex;
+            
+            const translateX = -(state.currentSlide * 100);
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            updateIndicators(indicators, state.currentSlide);
+        }
+
+        function updateIndicators(indicators, activeIndex) {
+            indicators.forEach((indicator, index) => {
+                if (index === activeIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        // Fonctions pour le type de location
+        function switchRentalType(type) {
+            isMonthlyRental = (type === 'monthly');
+            
+            console.log('Changement de type de location:', type, 'isMonthlyRental:', isMonthlyRental);
+            
+            // Mettre à jour les onglets
+            document.getElementById('short-rental-tab').classList.toggle('active', type === 'short');
+            document.getElementById('monthly-rental-tab').classList.toggle('active', type === 'monthly');
+            
+            // Afficher/masquer les sections
+            document.getElementById('short-rental-section').style.display = type === 'short' ? 'block' : 'none';
+            document.getElementById('monthly-rental-section').style.display = type === 'monthly' ? 'block' : 'none';
+            
+            // Réinitialiser les sélections
+            selectedLogement = null;
+            selectedDuration = null;
+            bookingData = {};
+            document.getElementById('booking-form').classList.remove('active');
+            
+            // Réinitialiser les boutons
+            document.querySelectorAll('.logement-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('.duration-btn').forEach(btn => btn.classList.remove('selected'));
+            
+            console.log('Type de location changé, variables réinitialisées');
+        }
+
+        // Sélection durée location mensuelle
+        function selectDuration(months) {
+            selectedDuration = months;
+            
+            console.log('Durée sélectionnée:', months, 'mois');
+            
+            // Mettre à jour visuellement
+            document.querySelectorAll('.duration-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelector(`[data-months="${months}"]`).classList.add('selected');
+            
+            // Mettre à jour le champ caché
+            document.getElementById('selected-duration').value = months;
+            
+            // Recalculer le total
+            calculateMonthlyTotal();
+        }
+
+        // Sélection logement mensuel
+        function selectMonthlyLogement(type) {
+            selectedLogement = type + '-monthly';
+            isMonthlyRental = true; // IMPORTANT: définir le mode mensuel
+            
+            console.log('Sélection logement mensuel:', type, 'isMonthlyRental:', isMonthlyRental);
+            
+            // Mettre à jour visuellement
+            document.querySelectorAll('.logement-btn').forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.querySelector(`[data-type="${type}-monthly"]`).classList.add('selected');
+            
+            // Récupérer les données
+            const option = document.querySelector(`[data-type="${type}-monthly"]`);
+            bookingData.logement = type + '-monthly';
+            bookingData.price = parseInt(option.dataset.price);
+            bookingData.maxPersons = parseInt(option.dataset.max);
+            bookingData.baseType = type;
+            bookingData.isMonthly = true;
+            
+            console.log('BookingData mis à jour:', bookingData);
+            
+            // Mettre à jour les informations
+            const logementInfo = {
+                '1chambre-monthly': { name: '🛏️ Logement 1 Chambre (mensuel)' },
+                '2chambres-monthly': { name: '🏡 Logement 2 Chambres (mensuel)' },
+                'ensemble-monthly': { name: '🏘️ Logement 3 Chambres (mensuel)' }
+            };
+            
+            document.getElementById('selected-title').textContent = logementInfo[selectedLogement].name;
+            document.getElementById('dates-title').textContent = '📅 Durée et personnes';
+            
+            // Mettre à jour les options de personnes
+            const personnesSelect = document.getElementById('personnes');
+            personnesSelect.innerHTML = '<option value="">Choisir...</option>';
+            for (let i = 1; i <= bookingData.maxPersons; i++) {
+                personnesSelect.innerHTML += `<option value="${i}">${i} personne${i > 1 ? 's' : ''}</option>`;
+            }
+            
+            // Afficher le formulaire et les champs mensuels
+            document.getElementById('booking-form').classList.add('active');
+            document.getElementById('short-form-fields').style.display = 'none';
+            document.getElementById('monthly-form-fields').style.display = 'block';
+            
+            // Scroll vers le formulaire
+            setTimeout(() => {
+                document.getElementById('booking-form').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+            
+            // Calculer le total si la durée est déjà sélectionnée
+            calculateMonthlyTotal();
+        }
+
+        // Calcul total location mensuelle
+        function calculateMonthlyTotal() {
+            const startDate = document.getElementById('start-date').value;
+            
+            if (!selectedLogement || !selectedDuration || !startDate) return;
+            
+            // Cacher les messages précédents
+            document.getElementById('price-calculation').classList.remove('active');
+            document.getElementById('monthly-price-calculation').classList.remove('active');
+            document.getElementById('error-calculation').style.display = 'none';
+            
+            const monthlyPrice = bookingData.price;
+            const duration = selectedDuration;
+            const subtotal = monthlyPrice * duration;
+            const caution = monthlyPrice; // 1 mois de caution
+            const total = subtotal + caution;
+            
+            // Afficher le calcul
+            document.getElementById('monthly-price-calculation').classList.add('active');
+            
+            const logementNames = {
+                '1chambre-monthly': '🛏️ 1 Chambre',
+                '2chambres-monthly': '🏡 2 Chambres',
+                'ensemble-monthly': '🏘️ 3 Chambres'
+            };
+            
+            document.getElementById('monthly-selected-logement').textContent = logementNames[selectedLogement];
+            document.getElementById('monthly-price-per-month').textContent = `${monthlyPrice.toLocaleString()} XPF`;
+            document.getElementById('monthly-duration').textContent = `${duration} mois`;
+            document.getElementById('monthly-subtotal').textContent = `${subtotal.toLocaleString()} XPF`;
+            document.getElementById('monthly-caution').textContent = `${caution.toLocaleString()} XPF`;
+            document.getElementById('monthly-total-amount').textContent = `${total.toLocaleString()} XPF`;
+            
+            // Sauvegarder les données
+            bookingData.duration = duration;
+            bookingData.monthlyPrice = monthlyPrice;
+            bookingData.subtotal = subtotal;
+            bookingData.caution = caution;
+            bookingData.total = total;
+            bookingData.isMonthly = true;
+            bookingData.startDate = startDate;
+            
+            console.log('Calcul mensuel terminé:', bookingData);
+        }
+
+        // Fonction de génération de calendrier
+        function generateCalendarEvent() {
+            if (!bookingData.total) return null;
+            
+            let startDate, endDate, summary, description;
+            
+            if (isMonthlyRental) {
+                // Location mensuelle
+                startDate = new Date(document.getElementById('start-date').value);
+                endDate = new Date(startDate);
+                endDate.setMonth(endDate.getMonth() + selectedDuration);
+                
+                const logementNames = {
+                    '1chambre-monthly': 'Logement 1 Chambre',
+                    '2chambres-monthly': 'Logement 2 Chambres', 
+                    'ensemble-monthly': 'Logement 3 Chambres'
+                };
+                
+                summary = `Location ${logementNames[selectedLogement]} - ${selectedDuration} mois`;
+                description = `Location mensuelle confirmée\\n\\n` +
+                    `Logement: ${logementNames[selectedLogement]}\\n` +
+                    `Durée: ${selectedDuration} mois\\n` +
+                    `Prix: ${bookingData.monthlyPrice.toLocaleString()} XPF/mois\\n` +
+                    `Total: ${bookingData.total.toLocaleString()} XPF\\n\\n` +
+                    `Contact: vaitarualocation@gmail.com\\n` +
+                    `Téléphone: +689 89 78 51 66`;
+            } else {
+                // Séjour court
+                startDate = new Date(bookingData.checkin);
+                endDate = new Date(bookingData.checkout);
+                
+                const logementNames = {
+                    '1chambre': 'Logement 1 Chambre',
+                    '2chambres': 'Logement 2 Chambres',
+                    'ensemble': 'Logement 3 Chambres'
+                };
+                
+                summary = `Séjour ${logementNames[bookingData.logement]} - ${bookingData.nights} nuit${bookingData.nights > 1 ? 's' : ''}`;
+                description = `Réservation confirmée\\n\\n` +
+                    `Logement: ${logementNames[bookingData.logement]}\\n` +
+                    `Dates: Du ${bookingData.checkin} au ${bookingData.checkout}\\n` +
+                    `Nuits: ${bookingData.nights}\\n` +
+                    `Prix: ${bookingData.total.toLocaleString()} XPF\\n\\n` +
+                    `Check-in: 15h00\\n` +
+                    `Check-out: 11h00\\n\\n` +
+                    `Contact: vaitarualocation@gmail.com\\n` +
+                    `Téléphone: +689 89 78 51 66`;
+            }
+            
+            // Formater les dates pour le format iCalendar
+            const formatDate = (date) => {
+                return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            };
+            
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vaitarua Location//Reservation//FR
+BEGIN:VEVENT
+UID:${Date.now()}@vaitarua-location.com
+DTSTAMP:${formatDate(new Date())}
+DTSTART:${formatDate(startDate)}
+DTEND:${formatDate(endDate)}
+SUMMARY:${summary}
+DESCRIPTION:${description}
+LOCATION:Taravao, Baie de Phaeton, Tahiti, Polynésie française
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR`;
+            
+            return icsContent;
+        }
+
+        function downloadCalendar() {
+            const icsContent = generateCalendarEvent();
+            if (!icsContent) {
+                alert('Erreur lors de la génération du calendrier');
+                return;
+            }
+            
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            
+            const filename = isMonthlyRental ? 
+                `vaitarua-location-mensuelle-${selectedDuration}mois.ics` :
+                `vaitarua-reservation-${bookingData.checkin}-${bookingData.checkout}.ics`;
+                
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Afficher un message de succès
+            alert('📅 Calendrier téléchargé !\n\nVous pouvez maintenant l\'importer dans :\n• Google Calendar\n• Outlook\n• Apple Calendar\n• Tout autre calendrier compatible .ics');
+        }
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Animations au scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('revealed');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Navigation header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Sélection du logement
+        function selectLogement(type) {
+            selectedLogement = type;
+            
+            // Mettre à jour visuellement
+            document.querySelectorAll('.logement-btn').forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('selected');
+            
+            // Récupérer les données
+            const option = document.querySelector(`[data-type="${type}"]`);
+            bookingData.logement = type;
+            bookingData.price = parseInt(option.dataset.price);
+            bookingData.maxPersons = parseInt(option.dataset.max);
+            
+            // Mettre à jour les informations
+            const logementInfo = {
+                '1chambre': { name: '🛏️ Logement 1 Chambre' },
+                '2chambres': { name: '🏡 Logement 2 Chambres' },
+                'ensemble': { name: '🏘️ Logement 3 Chambres' }
+            };
+            
+            document.getElementById('selected-title').textContent = logementInfo[type].name;
+            
+            // Mettre à jour les options de personnes
+            const personnesSelect = document.getElementById('personnes');
+            personnesSelect.innerHTML = '<option value="">Choisir...</option>';
+            for (let i = 1; i <= bookingData.maxPersons; i++) {
+                personnesSelect.innerHTML += `<option value="${i}">${i} personne${i > 1 ? 's' : ''}</option>`;
+            }
+            
+            // Afficher le formulaire
+            document.getElementById('booking-form').classList.add('active');
+            
+            // Scroll vers le formulaire
+            setTimeout(() => {
+                document.getElementById('booking-form').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+            
+            // Calculer le total si les dates sont déjà remplies
+            calculateTotal();
+        }
+
+        // Fonction d'analyse du type de séjour
+        function analyzeStayType(checkinDate, checkoutDate, nights) {
+            const checkinDay = checkinDate.getDay();
+            const checkoutDay = checkoutDate.getDay();
+            
+            const isWeekdayOnly = !includesWeekendDays(checkinDate, checkoutDate);
+            
+            if (checkinDay === 0 && checkoutDay === 1 && nights === 1) {
+                return {
+                    type: '🌙 Dimanche seul',
+                    rule: 'Créneau flexible - 1 nuit autorisée',
+                    minNights: 1,
+                    isWeekend: false,
+                    isOptimal: true
+                };
+            }
+            
+            if (isWeekdayOnly) {
+                return {
+                    type: '📆 Semaine',
+                    rule: 'Flexible - À partir de 1 nuit',
+                    minNights: 1,
+                    isWeekend: false,
+                    isOptimal: true
+                };
+            }
+            
+            if (includesWeekendDays(checkinDate, checkoutDate)) {
+                return {
+                    type: '📅 Week-end',
+                    rule: 'Week-end - Minimum 2 nuits',
+                    minNights: 2,
+                    isWeekend: true,
+                    isOptimal: nights >= 2
+                };
+            }
+            
+            return {
+                type: '📋 Séjour standard',
+                rule: 'Minimum 1 nuit',
+                minNights: 1,
+                isWeekend: false,
+                isOptimal: true
+            };
+        }
+
+        function includesWeekendDays(checkinDate, checkoutDate) {
+            const currentDate = new Date(checkinDate);
+            while (currentDate < checkoutDate) {
+                const dayOfWeek = currentDate.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
+                    return true;
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            return false;
+        }
+
+        // Calcul du total
+        function calculateTotal() {
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            
+            // Cacher les messages précédents
+            document.getElementById('price-calculation').classList.remove('active');
+            document.getElementById('error-calculation').style.display = 'none';
+            
+            if (checkin && checkout && selectedLogement) {
+                const checkinDate = new Date(checkin);
+                const checkoutDate = new Date(checkout);
+                
+                if (checkoutDate > checkinDate) {
+                    const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+                    const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    
+                    const stayAnalysis = analyzeStayType(checkinDate, checkoutDate, nights);
+                    
+                    if (nights < stayAnalysis.minNights) {
+                        document.getElementById('error-calculation').style.display = 'flex';
+                        document.getElementById('error-message').textContent = 
+                            `${stayAnalysis.rule} - Minimum requis : ${stayAnalysis.minNights} nuit${stayAnalysis.minNights > 1 ? 's' : ''}`;
+                        return;
+                    }
+                    
+                    const basePrice = bookingData.price;
+                    let subtotal = nights * basePrice;
+                    
+                    let discount = 0;
+                    let total = subtotal;
+                    if (nights >= 3) {
+                        discount = Math.round(subtotal * 0.1);
+                        total = subtotal - discount;
+                    }
+                    
+                    // Afficher le calcul
+                    document.getElementById('price-calculation').classList.add('active');
+                    
+                    const logementNames = {
+                        '1chambre': '🛏️ 1 Chambre',
+                        '2chambres': '🏡 2 Chambres',
+                        'ensemble': '🏘️ 3 Chambres'
+                    };
+                    
+                    document.getElementById('selected-logement').textContent = logementNames[bookingData.logement];
+                    document.getElementById('stay-type-text').textContent = stayAnalysis.type;
+                    document.getElementById('price-per-night').textContent = `${basePrice.toLocaleString()} XPF`;
+                    document.getElementById('nights-count').textContent = `${nights} nuit${nights > 1 ? 's' : ''}`;
+                    document.getElementById('subtotal-amount').textContent = `${subtotal.toLocaleString()} XPF`;
+                    
+                    const discountRow = document.getElementById('discount-row');
+                    const discountAmount = document.getElementById('discount-amount');
+                    if (discount > 0) {
+                        discountRow.style.display = 'flex';
+                        discountAmount.textContent = `-${discount.toLocaleString()} XPF`;
+                    } else {
+                        discountRow.style.display = 'none';
+                    }
+                    
+                    document.getElementById('total-amount').textContent = `${total.toLocaleString()} XPF`;
+                    
+                    let conditionsText = '';
+                    if (stayAnalysis.isOptimal) {
+                        conditionsText += '✅ Séjour optimisé ! ';
+                    }
+                    if (nights >= 3) {
+                        conditionsText += '🎉 Réduction -10% appliquée (3+ nuits).';
+                    } else if (nights < 3) {
+                        const additionalNights = 3 - nights;
+                        conditionsText += `💡 Ajoutez ${additionalNights} nuit${additionalNights > 1 ? 's' : ''} pour -10% !`;
+                    }
+                    
+                    document.getElementById('conditions-text').textContent = conditionsText;
+                    
+                    bookingData.nights = nights;
+                    bookingData.subtotal = subtotal;
+                    bookingData.discount = discount;
+                    bookingData.total = total;
+                    bookingData.checkin = checkin;
+                    bookingData.checkout = checkout;
+                    bookingData.stayType = stayAnalysis.type;
+                    bookingData.stayRule = stayAnalysis.rule;
+                }
+            }
+        }
+
+        // Validation du formulaire
+        function validateForm() {
+            const form = document.getElementById('reservationForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            console.log('Validation du formulaire:');
+            console.log('- isMonthlyRental:', isMonthlyRental);
+            console.log('- selectedLogement:', selectedLogement);
+            console.log('- selectedDuration:', selectedDuration);
+            console.log('- FormData:', data);
+            console.log('- bookingData:', bookingData);
+            
+            if (!selectedLogement) {
+                alert('⚠️ Veuillez sélectionner un logement');
+                return false;
+            }
+            
+            if (!data.nom || !data.email || !data.personnes) {
+                alert('⚠️ Veuillez remplir tous les champs obligatoires (*)');
+                return false;
+            }
+            
+            if (isMonthlyRental) {
+                console.log('Validation location mensuelle...');
+                // Validation spécifique pour location mensuelle
+                if (!data['start-date']) {
+                    alert('⚠️ Veuillez sélectionner une date de début de location');
+                    return false;
+                }
+                if (!selectedDuration) {
+                    alert('⚠️ Veuillez sélectionner une durée de location (1 à 12 mois)');
+                    return false;
+                }
+                if (!bookingData.total) {
+                    alert('⚠️ Erreur dans le calcul du prix mensuel. Vérifiez que la date et la durée sont bien sélectionnées.');
+                    return false;
+                }
+                console.log('Validation mensuelle réussie !');
+            } else {
+                console.log('Validation location nuitée...');
+                // Validation spécifique pour location à la nuitée
+                if (!data.checkin || !data.checkout) {
+                    alert('⚠️ Veuillez sélectionner des dates d\'arrivée et de départ');
+                    return false;
+                }
+                if (!bookingData.total) {
+                    alert('⚠️ Veuillez sélectionner des dates valides respectant les règles de réservation');
+                    return false;
+                }
+                console.log('Validation nuitée réussie !');
+            }
+            
+            return true;
+        }
+
+        // Traitement de la réservation
+        function processBooking(method) {
+            if (!validateForm()) return;
+            
+            const formData = new FormData(document.getElementById('reservationForm'));
+            const data = Object.fromEntries(formData);
+            
+            Object.assign(bookingData, data);
+            
+            if (isMonthlyRental) {
+                // Location mensuelle
+                const logementNames = {
+                    '1chambre-monthly': 'Location mensuelle - Logement 1 chambre',
+                    '2chambres-monthly': 'Location mensuelle - Logement 2 chambres',
+                    'ensemble-monthly': 'Location mensuelle - Logement 3 chambres'
+                };
+                
+                const logementName = logementNames[bookingData.logement];
+                
+                let monthlyDetails = `
+📅 LOCATION MENSUELLE
+
+🏠 Logement: ${logementName}
+👤 Nom: ${bookingData.nom}
+📧 Email: ${bookingData.email}
+📞 Téléphone: ${bookingData.telephone || 'Non renseigné'}
+📅 Début: ${bookingData['start-date']}
+⏱️ Durée: ${bookingData.duration} mois
+👥 Personnes: ${bookingData.personnes}
+
+💰 DÉTAIL DU PRIX:
+- Prix mensuel: ${bookingData.monthlyPrice.toLocaleString()} XPF/mois
+- Durée: ${bookingData.duration} mois
+- Location: ${bookingData.subtotal.toLocaleString()} XPF
+- Caution (1 mois): ${bookingData.caution.toLocaleString()} XPF
+- TOTAL À PAYER: ${bookingData.total.toLocaleString()} XPF
+
+✅ CHARGES COMPRISES: Eau, entretien, taxe habitation
+⚡ À PRÉVOIR: EDT (électricité) + Internet à souscrire
+
+💬 Message: ${bookingData.message || 'Aucun'}`;
+
+                if (method === 'stripe') {
+                    bookingData.isMonthly = true;
+                    openStripeModal();
+                    
+                } else if (method === 'whatsapp') {
+                    const whatsappURL = `https://wa.me/68989785166?text=${encodeURIComponent(monthlyDetails + '\n\nMerci de me contacter pour finaliser !')}`;
+                    window.open(whatsappURL, '_blank');
+                    
+                } else if (method === 'email') {
+                    const emailSubject = `📅 Demande de location mensuelle - ${logementName}`;
+                    window.open(`mailto:vaitarualocation@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(monthlyDetails + '\n\nMerci de nous contacter pour finaliser la location.')}`);
+                }
+                
+            } else {
+                // Séjour court (code existant)
+                const logementNames = {
+                    '1chambre': 'Logement 1 chambre',
+                    '2chambres': 'Logement 2 chambres',
+                    'ensemble': 'Logement 3 chambres'
+                };
+                
+                const logementName = logementNames[bookingData.logement];
+                
+                let priceDetails = `
+💰 DÉTAIL DU PRIX:
+📊 Type de séjour: ${bookingData.stayType}
+📋 Règle appliquée: ${bookingData.stayRule}
+- Prix par nuit: ${bookingData.price.toLocaleString()} XPF
+- Nombre de nuits: ${bookingData.nights}
+- Sous-total: ${bookingData.subtotal.toLocaleString()} XPF`;
+
+                if (bookingData.discount > 0) {
+                    priceDetails += `
+- Réduction -10% (3+ nuits): -${bookingData.discount.toLocaleString()} XPF`;
+                }
+
+                priceDetails += `
+- TOTAL FINAL: ${bookingData.total.toLocaleString()} XPF`;
+
+                const scheduleInfo = `
+⏰ HORAIRES:
+- Check-in: ${bookingData.checkin} à partir de 15h00
+- Check-out: ${bookingData.checkout} jusqu'à 11h00
+📍 Fuseau horaire: Afaahiti (Tahiti)`;
+                
+                if (method === 'stripe') {
+                    bookingData.isMonthly = false;
+                    openStripeModal();
+                    
+                } else if (method === 'whatsapp') {
+                    const message = `🏠 DEMANDE DE RÉSERVATION
+
+Logement: ${logementName}
+Nom: ${bookingData.nom}
+Email: ${bookingData.email}
+Téléphone: ${bookingData.telephone || 'Non renseigné'}
+Dates: Du ${bookingData.checkin} au ${bookingData.checkout}
+Personnes: ${bookingData.personnes}
+${priceDetails}
+${scheduleInfo}
+
+Message: ${bookingData.message || 'Aucun'}
+
+Merci de me contacter pour finaliser !`;
+
+                    const whatsappURL = `https://wa.me/68989785166?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappURL, '_blank');
+                    
+                } else if (method === 'email') {
+                    const emailSubject = `✅ Demande de réservation ${logementName}`;
+                    const emailBody = `DEMANDE DE RÉSERVATION
+
+🏠 Logement: ${logementName}
+👤 Nom: ${bookingData.nom}
+📧 Email: ${bookingData.email}
+📞 Téléphone: ${bookingData.telephone || 'Non renseigné'}
+📅 Du ${bookingData.checkin} au ${bookingData.checkout}
+👥 Personnes: ${bookingData.personnes}
+${priceDetails}
+${scheduleInfo}
+
+💬 Message: ${bookingData.message || 'Aucun'}
+
+Merci de nous contacter pour finaliser la réservation.`;
+
+                    window.open(`mailto:vaitarualocation@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`);
+                }
+            }
+
+            if (method !== 'stripe') {
+                // Afficher message de succès pour les autres méthodes
+                const successMessage = document.getElementById('success-message');
+                successMessage.classList.add('active');
+                
+                setTimeout(() => {
+                    successMessage.classList.remove('active');
+                }, 5000);
+
+                const totalText = isMonthlyRental ? 
+                    `Total: ${bookingData.total.toLocaleString()} XPF (location + caution)` :
+                    `Total: ${bookingData.total.toLocaleString()} XPF${bookingData.discount > 0 ? `\n🎉 Réduction de ${bookingData.discount.toLocaleString()} XPF appliquée!` : ''}`;
+
+                alert(`✅ Demande envoyée !\n${totalText}`);
+            }
+        }
+
+        // Fonctions Stripe
+        function openStripeModal() {
+            // Afficher le modal
+            document.getElementById('stripe-modal').style.display = 'flex';
+            
+            // Remplir le récapitulatif
+            let summary;
+            
+            if (isMonthlyRental) {
+                const logementNames = {
+                    '1chambre-monthly': '🛏️ Logement 1 Chambre (mensuel)',
+                    '2chambres-monthly': '🏡 Logement 2 Chambres (mensuel)',
+                    'ensemble-monthly': '🏘️ Logement 3 Chambres (mensuel)'
+                };
+                
+                summary = `
+                    <div style="margin-bottom: 0.5rem;"><strong>Logement:</strong> ${logementNames[bookingData.logement]}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Début:</strong> ${bookingData['start-date']}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Durée:</strong> ${bookingData.duration} mois</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Personnes:</strong> ${bookingData.personnes}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Prix mensuel:</strong> ${bookingData.monthlyPrice.toLocaleString()} XPF</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Location:</strong> ${bookingData.subtotal.toLocaleString()} XPF</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Caution:</strong> ${bookingData.caution.toLocaleString()} XPF</div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e5e7eb; font-size: 1.1rem;"><strong>Total: ${bookingData.total.toLocaleString()} XPF</strong></div>
+                `;
+            } else {
+                const logementNames = {
+                    '1chambre': '🛏️ Logement 1 Chambre',
+                    '2chambres': '🏡 Logement 2 Chambres',
+                    'ensemble': '🏘️ Logement 3 Chambres'
+                };
+                
+                summary = `
+                    <div style="margin-bottom: 0.5rem;"><strong>Logement:</strong> ${logementNames[bookingData.logement]}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Dates:</strong> Du ${bookingData.checkin} au ${bookingData.checkout}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Personnes:</strong> ${bookingData.personnes}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>Nuits:</strong> ${bookingData.nights}</div>
+                    ${bookingData.discount > 0 ? `<div style="margin-bottom: 0.5rem; color: #10b981;"><strong>Réduction -10%:</strong> -${bookingData.discount.toLocaleString()} XPF</div>` : ''}
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e5e7eb; font-size: 1.1rem;"><strong>Total: ${bookingData.total.toLocaleString()} XPF</strong></div>
+                `;
+            }
+            
+            document.getElementById('stripe-summary').innerHTML = summary;
+            document.getElementById('stripe-amount').textContent = bookingData.total.toLocaleString();
+            
+            // Initialiser Stripe Elements
+            initializeStripeElements();
+        }
+
+        function closeStripeModal() {
+            document.getElementById('stripe-modal').style.display = 'none';
+            if (elements) {
+                elements.destroy();
+            }
+        }
+
+        function initializeStripeElements() {
+            // Créer les éléments Stripe
+            elements = stripe.elements({
+                appearance: {
+                    theme: 'stripe',
+                    variables: {
+                        colorPrimary: '#635bff',
+                        colorBackground: '#ffffff',
+                        colorText: '#1f2937',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        borderRadius: '12px'
+                    }
+                }
+            });
+
+            // Créer l'élément carte
+            cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#1f2937',
+                        '::placeholder': {
+                            color: '#9ca3af',
+                        },
+                    },
+                },
+            });
+
+            cardElement.mount('#stripe-card-element');
+
+            // Gérer les erreurs en temps réel
+            cardElement.on('change', ({error}) => {
+                const displayError = document.getElementById('stripe-card-errors');
+                if (error) {
+                    displayError.textContent = error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+
+            // Gérer la soumission du formulaire
+            const form = document.getElementById('stripe-payment-form');
+            form.addEventListener('submit', handleStripeSubmit);
+        }
+
+        async function handleStripeSubmit(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('stripe-submit-btn');
+            const spinner = document.getElementById('stripe-spinner');
+            const btnText = document.getElementById('stripe-btn-text');
+
+            // Désactiver le bouton et afficher le spinner
+            submitBtn.disabled = true;
+            spinner.style.display = 'block';
+            btnText.style.display = 'none';
+
+            try {
+                // Créer un PaymentMethod
+                const {error, paymentMethod} = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        name: bookingData.nom,
+                        email: bookingData.email,
+                        phone: bookingData.telephone || null,
+                    },
+                });
+
+                if (error) {
+                    document.getElementById('stripe-card-errors').textContent = error.message;
+                    submitBtn.disabled = false;
+                    spinner.style.display = 'none';
+                    btnText.style.display = 'block';
+                    return;
+                }
+
+                // Simuler une confirmation de paiement (en production, vous appelleriez votre backend)
+                setTimeout(() => {
+                    closeStripeModal();
+                    
+                    // Afficher le calendrier
+                    document.getElementById('calendar-section').classList.add('active');
+                    
+                    // Scroll vers le calendrier
+                    setTimeout(() => {
+                        document.getElementById('calendar-section').scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }, 500);
+                    
+                    // Afficher message de succès
+                    const successMessage = document.getElementById('success-message');
+                    successMessage.classList.add('active');
+                    
+                    setTimeout(() => {
+                        successMessage.classList.remove('active');
+                    }, 5000);
+
+                    const confirmationText = isMonthlyRental ? 
+                        `✅ Paiement confirmé !\nMontant: ${bookingData.total.toLocaleString()} XPF\n\nVotre location mensuelle est confirmée. Vous pouvez télécharger votre calendrier ci-dessous.` :
+                        `✅ Paiement confirmé !\nMontant: ${bookingData.total.toLocaleString()} XPF\n\nVotre réservation est confirmée. Vous pouvez télécharger votre calendrier ci-dessous.`;
+
+                    alert(confirmationText);
+                    
+                    // Envoyer les détails par email pour traitement
+                    sendBookingConfirmation();
+                    
+                }, 2000);
+
+            } catch (err) {
+                document.getElementById('stripe-card-errors').textContent = 'Une erreur est survenue lors du traitement du paiement.';
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+                btnText.style.display = 'block';
+            }
+        }
+
+        function sendBookingConfirmation() {
+            if (isMonthlyRental) {
+                // Location mensuelle
+                const logementNames = {
+                    '1chambre-monthly': 'Location mensuelle - Logement 1 chambre',
+                    '2chambres-monthly': 'Location mensuelle - Logement 2 chambres',
+                    'ensemble-monthly': 'Location mensuelle - Logement 3 chambres'
+                };
+                
+                const logementName = logementNames[bookingData.logement];
+                
+                const emailSubject = `💳 PAIEMENT CONFIRMÉ - ${logementName}`;
+                const emailBody = `🎉 PAIEMENT CONFIRMÉ PAR CARTE BANCAIRE
+
+📅 LOCATION MENSUELLE
+
+🏠 Logement: ${logementName}
+👤 Nom: ${bookingData.nom}
+📧 Email: ${bookingData.email}
+📞 Téléphone: ${bookingData.telephone || 'Non renseigné'}
+📅 Début: ${bookingData['start-date']}
+⏱️ Durée: ${bookingData.duration} mois
+👥 Personnes: ${bookingData.personnes}
+
+💰 DÉTAIL DU PRIX:
+- Prix mensuel: ${bookingData.monthlyPrice.toLocaleString()} XPF/mois
+- Durée: ${bookingData.duration} mois
+- Location: ${bookingData.subtotal.toLocaleString()} XPF
+- Caution (1 mois): ${bookingData.caution.toLocaleString()} XPF
+- TOTAL PAYÉ: ${bookingData.total.toLocaleString()} XPF
+
+💳 PAIEMENT: CONFIRMÉ PAR STRIPE
+
+✅ CHARGES COMPRISES: Eau, ramassage ordures ménagères
+⚡ À PRÉVOIR: EDT (électricité) + Internet à souscrire par le locataire
+
+📋 INFORMATIONS BAIL:
+- Caution: 1 mois (${bookingData.caution.toLocaleString()} XPF) - restituée en fin de bail
+- Préavis: ${bookingData.duration >= 6 ? '2 mois' : '1 mois'}
+- État des lieux: À prévoir avant entrée
+
+💬 Message: ${bookingData.message || 'Aucun'}
+
+Le client a payé intégralement. Merci de préparer le contrat de bail.`;
+
+                window.open(`mailto:vaitarualocation@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`);
+                
+            } else {
+                // Séjour court
+                const logementNames = {
+                    '1chambre': 'Logement 1 chambre',
+                    '2chambres': 'Logement 2 chambres',
+                    'ensemble': 'Logement 3 chambres'
+                };
+                
+                const logementName = logementNames[bookingData.logement];
+                
+                const emailSubject = `✅ PAIEMENT CONFIRMÉ - Réservation ${logementName}`;
+                const emailBody = `🎉 PAIEMENT CONFIRMÉ PAR CARTE BANCAIRE
+
+🏠 Logement: ${logementName}
+👤 Nom: ${bookingData.nom}
+📧 Email: ${bookingData.email}
+📞 Téléphone: ${bookingData.telephone || 'Non renseigné'}
+📅 Du ${bookingData.checkin} au ${bookingData.checkout}
+👥 Personnes: ${bookingData.personnes}
+
+💰 DÉTAIL DU PRIX:
+- Prix par nuit: ${bookingData.price.toLocaleString()} XPF
+- Nombre de nuits: ${bookingData.nights}
+- Sous-total: ${bookingData.subtotal.toLocaleString()} XPF${bookingData.discount > 0 ? `
+- Réduction -10%: -${bookingData.discount.toLocaleString()} XPF` : ''}
+- TOTAL PAYÉ: ${bookingData.total.toLocaleString()} XPF
+
+💳 PAIEMENT: CONFIRMÉ PAR STRIPE
+
+⏰ HORAIRES:
+- Check-in: ${bookingData.checkin} à partir de 15h00
+- Check-out: ${bookingData.checkout} jusqu'à 11h00
+
+💬 Message: ${bookingData.message || 'Aucun'}
+
+Le client a payé intégralement. Merci de confirmer la réservation.`;
+
+                window.open(`mailto:vaitarualocation@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkin').min = today;
+            document.getElementById('checkout').min = today;
+            document.getElementById('start-date').min = today;
+            
+            document.getElementById('checkin').addEventListener('change', function() {
+                document.getElementById('checkout').min = this.value;
+                calculateTotal();
+            });
+            
+            document.getElementById('checkout').addEventListener('change', calculateTotal);
+            document.getElementById('start-date').addEventListener('change', calculateMonthlyTotal);
+            
+            revealOnScroll();
+            startCarouselAutoplay();
+            
+            // Fermer le modal Stripe avec Échap
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeStripeModal();
+                }
+            });
+            
+            // Fermer le modal en cliquant en dehors
+            document.getElementById('stripe-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeStripeModal();
+                }
+            });
+        });
+
+        // Support tactile pour les carrousels
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousels = document.querySelectorAll('.carousel-container');
+            
+            carousels.forEach(carousel => {
+                let startX = 0;
+                let endX = 0;
+                
+                const carouselId = carousel.querySelector('.carousel-track').id.replace('carousel-', '');
+                
+                carousel.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+                
+                carousel.addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    handleSwipe(carouselId);
+                });
+                
+                function handleSwipe(id) {
+                    const difference = startX - endX;
+                    const threshold = 50;
+                    
+                    if (Math.abs(difference) > threshold) {
+                        if (difference > 0) {
+                            moveCarousel(id, 1);
+                        } else {
+                            moveCarousel(id, -1);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
